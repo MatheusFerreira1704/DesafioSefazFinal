@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+	<p:messages id="messages" showDetail="true" closable="true">
+        <p:autoUpdate />
+    </p:messages>
+		<p:panelGrid style="width: 100%">
+			<p:row>
+				<p:column style="width:100px">
+					<h:outputLabel value="Nome: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:inputText value="#{UsuarioBean.usuario.nome}"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="width:100px">
+					<h:outputLabel value="E-mail: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:inputText value="#{UsuarioBean.usuario.email}" />
+				</p:column>
+			</p:row>
+			</p:panelGrid>
+			<p:row>
+				<p:column colspan="4">
+					<p:panel header="Telefones" style="text-align:center">
+						<p:dataTable id="telefone" var="telefone" value="#{UsuarioBean.usuario.telefones}" >
+							<p:column headerText="DDD">
+								<h:outputText value="#{telefone.ddd}" />
+							</p:column>
+							<p:column headerText="Número" style="width: 70%">
+								<h:outputText value="#{telefone.numero}" />
+							</p:column>
+							<p:column headerText="Tipo">
+								<h:outputText value="#{telefone.tipo}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:column>
+			</p:row>
+			<p:toolbar>
+			<f:facet name="right">
+					<p:commandButton value="Voltar" icon="ui-icon-keyboard-return" update="@form"
+						actionListener="#{UsuarioBean.abrirPesquisarUsuario}"/>
+			</f:facet>			
+			</p:toolbar>			
+	</h:form>
+</h:body>
+</html>
