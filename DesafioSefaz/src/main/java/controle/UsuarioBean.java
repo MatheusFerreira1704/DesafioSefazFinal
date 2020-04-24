@@ -13,7 +13,7 @@ import dao.UsuarioDAO;
 import dao.UsuarioDAOImpl;
 import entidade.Telefone;
 import entidade.Usuario;
-import util.JpaUtil;
+import util1.JpaUtil;
 
 @ManagedBean(name = "UsuarioBean")
 @SessionScoped

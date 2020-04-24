@@ -19,17 +19,34 @@
 			visible="true"> -->
 			
 			<p:panelGrid columns="2"> 
-				<h:outputLabel value="Usuario :" />
-				<p:inputText value="#{LoginBean.usuarioTXT}" size="50"/>
+				<h:outputLabel value="E-mail:" />
+				<p:inputText value="#{LoginB.usuarioTXT}" size="50"/>
 				<h:outputLabel value="Senha :" />
-				<p:inputText value="#{LoginBean.senhaTXT}" size="50"/>
-				<h:outputLabel value="#{LoginBean.mensagem}" style="color: red" />
+				<p:password value="#{LoginB.senhaTXT}" size="50"/>
+				<h:outputLabel value="#{LoginB.mensagem}" style="color: red" />
 			<p:commandButton value="Entrar" update="@form"
-					actionListener="#{LoginBean.entrar}" />
+					actionListener="#{LoginB.entrar}" />
+					<p:commandButton value="Cadastro" type="button" onclick="PF('dlg2').show();" />
 			</p:panelGrid>
 			
 			
 	<!--  	</p:dialog> -->
+	<p:dialog header="CADASTRO" widgetVar="dlg2" modal="true" height="350">
+	<h:panelGrid>
+    <h:outputLabel value="E-mail:" />
+    <p:inputText value= "#{LoginB.usuario.email}"/> 
+   
+    <h:outputLabel value="Nome:"/>
+    <p:inputText value = "#{LoginB.usuario.nome}"/>
+  
+    <h:outputLabel value="Senha:"/>
+    <p:inputText value = "#{LoginB.usuario.senha}"/>
+ 
+    <p:commandButton value="Salvar" update="@form"
+    actionListener="#{LoginB.salvar}" />
+   </h:panelGrid>
+</p:dialog> 
+	
 	</h:form>
 </h:body>
 </html>
