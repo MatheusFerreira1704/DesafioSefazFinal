@@ -14,24 +14,24 @@
 			<f:facet name="left">
 							
 				<p:commandButton value="Consultar Usuários" icon="pi pi-users" update="@form"
-					actionListener="#{UsuarioBean.pesquisar}" />
+					actionListener="#{UserB.pesquisar}" />
 
 				<span class="ui-separator"> <span
 					class="ui icon ui-icon-grip-dotted-vertical" />
 				</span>
 
 				<p:commandButton value="Adicionar Usuário" icon="pi pi-user-plus"
-					update="@form" actionListener="#{UsuarioBean.abrirManterUsuario}" />
+					update="@form" actionListener="#{UserB.abrirManterUsuario}" />
 			</f:facet>
 			<f:facet name="right">
 			<p:commandButton value="Sair" icon="pi pi-times"
-					update="@form" actionListener="#{UsuarioBean.abrirTelaSair}" />
+					update="@form" actionListener="#{UserB.abrirTelaSair}" />
 			</f:facet>
 			
 		</p:toolbar>
 
 		<p:panel header="Lista de Usuários" style="text-align:center">
-			<p:dataTable var="usuario" value="#{UsuarioBean.listaUsuario}">
+			<p:dataTable var="usuario" value="#{UserB.listaUsuario}">
 				<p:column headerText="Nome" style="width:20%">
 					<h:outputText value="#{usuario.nome}" />
 				</p:column>
@@ -51,24 +51,24 @@
 				<!-- TESTANDO O BOTÃO VER TELEFONES -->
 				<p:column headerText="Ver Telefones" width="8%">
 					<p:commandButton icon="pi pi-search"
-						action="#{UsuarioBean.verTelefone}">
+						action="#{UserB.verTelefone}">
 						<f:setPropertyActionListener
-							target="#{UsuarioBean.emailSelecionado}" value="#{usuario.email}" />
+							target="#{UserB.emailSelecionado}" value="#{usuario.email}" />
 					</p:commandButton>
 				</p:column>
 
 
 				<p:column headerText="Editar" width="5%">
-					<p:commandButton icon="pi pi-pencil" action="#{UsuarioBean.editar}">
+					<p:commandButton icon="pi pi-pencil" action="#{UserB.editar}">
 						<f:setPropertyActionListener
-							target="#{UsuarioBean.emailSelecionado}" value="#{usuario.email}" />
+							target="#{UserB.emailSelecionado}" value="#{usuario.email}" />
 					</p:commandButton>
 				</p:column>
 				<p:column headerText="Remover" width="6%">
 					<p:commandButton icon="pi pi-trash" update="@form"
-						action="#{UsuarioBean.remover}">
+						action="#{UserB.remover}">
 						<f:setPropertyActionListener
-							target="#{UsuarioBean.emailSelecionado}" value="#{usuario.email}" />
+							target="#{UserB.emailSelecionado}" value="#{usuario.email}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>

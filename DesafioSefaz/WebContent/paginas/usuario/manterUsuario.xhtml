@@ -7,6 +7,7 @@
 </h:head>
 
 <h:body>
+	<h:outputLabel value="#{UserB.usuario.senha}" />
 	<h:form id="form">
 		<p:messages id="messages" showDetail="true" closable="true">
 			<p:autoUpdate />
@@ -18,7 +19,7 @@
 						<h:outputLabel value="Nome: " />
 					</p:column>
 					<p:column colspan="2" style="width:400px">
-						<p:inputText value="#{UsuarioBean.usuario.nome}" />
+						<p:inputText value="#{UserB.usuario.nome}" />
 					</p:column>
 				</p:row>
 				<p:row>
@@ -26,7 +27,7 @@
 						<h:outputLabel value="E-mail: " title="e-mail não é alteravel." />
 					</p:column>
 					<p:column colspan="2" style="width:400px">
-						<p:inputText value="#{UsuarioBean.usuario.email}" />
+						<p:inputText value="#{UserB.usuario.email}" />
 					</p:column>
 				</p:row>
 				<p:row>
@@ -34,7 +35,7 @@
 						<h:outputLabel value="Senha: " />
 					</p:column>
 					<p:column colspan="2" style="width:400px">
-						<p:password id="pwd2" value="#{UsuarioBean.usuario.senha}"
+						<p:password id="pwd2" value="#{UserB.usuario.senha}"
 							label="Password 2" redisplay="true" />
 					</p:column>
 				</p:row>
@@ -43,22 +44,22 @@
 						<p:panel header="Telefones" style="text-align:center">
 							<p:panelGrid columns="7">
 								<h:outputLabel value="DDD: " />
-								<p:inputText size="5" value="#{UsuarioBean.telefone.ddd}"
+								<p:inputText size="5" value="#{UserB.telefone.ddd}"
 									maxlength="2" />
 								<h:outputLabel value="Número: " />
-								<p:inputText size="95" value="#{UsuarioBean.telefone.numero}"
+								<p:inputText size="95" value="#{UserB.telefone.numero}"
 									maxlength="9" />
 								<h:outputLabel value="Tipo: " />
 								<p:selectOneMenu style="width:125px"
-									value="#{UsuarioBean.telefone.tipo}">
+									value="#{UserB.telefone.tipo}">
 									<f:selectItem itemLabel="Celular" itemValue="CELULAR" />
 									<f:selectItem itemLabel="Fixo" itemValue="FIXO" />
 								</p:selectOneMenu>
 								<p:commandButton value="Adicionar" update="telefone"
-									actionListener="#{UsuarioBean.adicionarTelefone}" />
+									actionListener="#{UserB.adicionarTelefone}" />
 							</p:panelGrid>
 							<p:dataTable id="telefone" var="telefone"
-								value="#{UsuarioBean.usuario.telefones}">
+								value="#{UserB.usuario.telefones}">
 								<p:column headerText="DDD" style="width:18%">
 									<h:outputText value="#{telefone.ddd}" />
 								</p:column>
@@ -77,8 +78,8 @@
 		<p:toolbar>
 			<f:facet name="left">
 				<p:commandButton value="Salvar" icon="ui-icon-disk" update="@form"
-					actionListener="#{UsuarioBean.salvar}" resetValues="true"
-					outcome="paginas/usuario/pesquisarUsuario.xhtml"/>
+					actionListener="#{UserB.salvar}" resetValues="true"
+					outcome="paginas/usuario/pesquisarUsuario.xhtml" />
 
 				<span class="ui-separator"> <span
 					class="ui icon ui-icon-grip-dotted-vertical" />
@@ -86,14 +87,13 @@
 
 				<p:commandButton value="Limpar" update="gridCampos"
 					icon="ui-icon-trash" process="@this"
-					actionListener="#{UsuarioBean.limpar}">
+					actionListener="#{UserB.limpar}">
 					<p:resetInput target="gridCampos" />
 				</p:commandButton>
 			</f:facet>
 			<f:facet name="right">
 				<p:commandButton value="Voltar" icon="ui-icon-keyboard-return"
-					update="@form"
-					actionListener="#{UsuarioBean.abrirPesquisarUsuario}" />
+					update="@form" actionListener="#{UserB.abrirPesquisarUsuario}" />
 			</f:facet>
 
 

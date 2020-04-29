@@ -5,48 +5,50 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<h:outputStylesheet library ="css" name="file.css"/>
+	<h:outputStylesheet library="css" name="file.css" />
 	<title>Desafio Sefaz</title>
 </h:head>
 
 <h:body>
-	
-	<p:graphicImage library="imagem" name="marca.png" width="435" margin-left= "auto" margin-right="auto"/>
-	
+
+	<p:graphicImage library="imagem" name="marca.png" width="435"
+		margin-left="auto" margin-right="auto" />
+
 	<h:form>
-	
-	<!--  	<p:dialog header="Desafio Sefaz" modal="true" height="150"
+
+		<!--  	<p:dialog header="Desafio Sefaz" modal="true" height="150"
 			visible="true"> -->
-			
-			<p:panelGrid columns="2"> 
-				<h:outputLabel value="E-mail:" />
-				<p:inputText value="#{LoginB.usuarioTXT}" size="50"/>
-				<h:outputLabel value="Senha :" />
-				<p:password value="#{LoginB.senhaTXT}" size="50"/>
-				<h:outputLabel value="#{LoginB.mensagem}" style="color: red" />
+
+		<p:panelGrid columns="2">
+			<h:outputLabel value="E-mail:" />
+			<p:inputText value="#{LoginB.usuarioTXT}" size="50" />
+			<h:outputLabel value="Senha :" />
+			<p:password value="#{LoginB.senhaTXT}" size="50" />
+			<h:outputLabel value="#{LoginB.mensagem}" style="color: red" />
 			<p:commandButton value="Entrar" update="@form"
-					actionListener="#{LoginB.entrar}" />
-					<p:commandButton value="Cadastro" type="button" onclick="PF('dlg2').show();" />
-			</p:panelGrid>
-			
-			
-	<!--  	</p:dialog> -->
-	<p:dialog header="CADASTRO" widgetVar="dlg2" modal="true" height="350">
-	<h:panelGrid>
-    <h:outputLabel value="E-mail:" />
-    <p:inputText value= "#{LoginB.usuario.email}"/> 
-   
-    <h:outputLabel value="Nome:"/>
-    <p:inputText value = "#{LoginB.usuario.nome}"/>
-  
-    <h:outputLabel value="Senha:"/>
-    <p:inputText value = "#{LoginB.usuario.senha}"/>
- 
-    <p:commandButton value="Salvar" update="@form"
-    actionListener="#{LoginB.salvar}" />
-   </h:panelGrid>
-</p:dialog> 
-	
+				actionListener="#{LoginB.entrar}" />
+			<p:commandButton value="Cadastro" type="button"
+				onclick="PF('dlg2').show();" />
+		</p:panelGrid>
+
+
+		<!--  	</p:dialog> -->
+		<p:dialog header="CADASTRO" widgetVar="dlg2" modal="true" height="350">
+			<h:panelGrid>
+				<h:outputLabel value="E-mail:" />
+				<p:inputText value="#{LoginB.usuario.email}" />
+
+				<h:outputLabel value="Nome:" />
+				<p:inputText value="#{LoginB.usuario.nome}" />
+
+				<h:outputLabel value="Senha:" />
+				<p:inputText value="#{LoginB.usuario.senha}" />
+
+				<p:commandButton value="Salvar" update="@form"
+					actionListener="#{LoginB.salvar}" />
+			</h:panelGrid>
+		</p:dialog>
+
 	</h:form>
 </h:body>
 </html>

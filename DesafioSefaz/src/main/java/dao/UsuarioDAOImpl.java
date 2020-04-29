@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,67 +14,84 @@ import entidade.Usuario;
  * Classe criada para implementar a interface
  * onde será passado todos os metodos.
  */
+import util1.JpaUtil;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 
 	private EntityManager ent;
+	private EntityTransaction tx;
 
-	// Construtor vai receber a conexão para executar
-	public UsuarioDAOImpl(EntityManager ent) {
-		this.ent = ent;
+	@Override
+	public boolean salvar(Usuario usuario) {
+		try {
+			this.ent = JpaUtil.getEntityManager();
+			tx = ent.getTransaction();
+			tx.begin();
+			ent.merge(usuario);
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			if (ent.isOpen()) {
+				tx.rollback();
+				System.out.println(e.getMessage());
+			}
+		} finally {
+			if (ent.isOpen()) {
+				ent.close();
+			}
+		}
+		return false;
 	}
 
 	@Override
-	public boolean inserir(Usuario usuario) {
+	public void remover(String emailUsuario) {
+		try {
+			this.ent = JpaUtil.getEntityManager();
+			Usuario user = ent.find(Usuario.class, emailUsuario);
+			tx = ent.getTransaction();
+			tx.begin();
+			ent.remove(user);
+			tx.commit();
 
-		EntityTransaction tx = ent.getTransaction();
-		tx.begin();
-		/*
-		 * Foi utilizado o merge no inserir, pq se verificar que o objeto não existe ele
-		 * inseri, e caso exista, ele vai editar.
-		 */
-		ent.merge(usuario);
-		tx.commit();
+		} catch (Exception e) {
+			if (ent.isOpen()) {
+				tx.rollback();
+			}
 
-		return true;
-	}
-
-	@Override
-	public void remover(Usuario usuario) {
-		EntityTransaction tx = ent.getTransaction();
-		tx.begin();
-
-		ent.remove(usuario);
-		tx.commit();
+		} finally {
+			if (ent.isOpen()) {
+				ent.close();
+			}
+		}
 
 	}
 
+	// N�o utilizado, devido ao merge
 	@Override
 	public void alterar(Usuario usuario) {
-		EntityTransaction tx = ent.getTransaction();
-		tx.begin();
-
-		ent.merge(usuario);
-		tx.commit();
 
 	}
 
 	@Override
 	public Usuario pesquisar(String email) {
-		Usuario usuario = ent.find(Usuario.class, email);
-
-		return usuario;
+		this.ent = JpaUtil.getEntityManager();
+		Usuario usuarioPesquisar = ent.find(Usuario.class, email);
+		return usuarioPesquisar;
 	}
 
 	/**
-	 * O metodo listar todos, faz um select * from, porém com o JPA, vc faz a consulta pelo objeto direto
-	 * assim from Usuario, diz que isso é o objeto usuario e não a tabela
+	 * O metodo listar todos, faz um select * from, porém com o JPA, vc faz a
+	 * consulta pelo objeto direto assim from Usuario, diz que isso é o objeto
+	 * usuario e não a tabela
 	 */
 	@Override
 	public List<Usuario> listarTodos() {
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		this.ent = JpaUtil.getEntityManager();
+
 		Query query = ent.createQuery("from Usuario u");
 
-		List<Usuario> usuarios = query.getResultList();
+		usuarios = query.getResultList();
 
 		return usuarios;
 	}

@@ -11,17 +11,14 @@ import entidade.Usuario;
  */
 public interface UsuarioDAO {
 
-public boolean inserir(Usuario usuario);
-	
-	public void remover(Usuario usuario);
-	
+	public boolean salvar(Usuario usuario);
+
+	public void remover(String emailUsuario);
+
 	public void alterar(Usuario usuario);
-	
-	public Usuario pesquisar (String email);
-	
+
+	public Usuario pesquisar(String email);
+
 	public List<Usuario> listarTodos();
-	
-	
-	
-	
+
 }
