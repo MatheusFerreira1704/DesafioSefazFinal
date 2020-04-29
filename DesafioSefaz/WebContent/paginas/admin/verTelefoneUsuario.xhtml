@@ -17,7 +17,7 @@
 					<h:outputLabel value="Nome: " />
 				</p:column>
 				<p:column colspan="2" style="width:400px">
-					<p:inputText value="#{UserB.usuario.nome}" />
+					<p:inputText value="#{AdminBean.usuario.nome}" />
 				</p:column>
 			</p:row>
 			<p:row>
@@ -25,7 +25,7 @@
 					<h:outputLabel value="E-mail: " />
 				</p:column>
 				<p:column colspan="2" style="width:400px">
-					<p:inputText value="#{UserB.usuario.email}" />
+					<p:inputText value="#{AdminBean.usuario.email}" />
 				</p:column>
 			</p:row>
 		</p:panelGrid>
@@ -33,7 +33,7 @@
 			<p:column colspan="4">
 				<p:panel header="Telefones" style="text-align:center">
 					<p:dataTable id="telefone" var="telefone"
-						value="#{UserB.usuario.telefones}">
+						value="#{AdminBean.usuario.telefones}">
 						<p:column headerText="DDD">
 							<h:outputText value="#{telefone.ddd}" />
 						</p:column>
@@ -50,7 +50,7 @@
 		<p:toolbar>
 			<f:facet name="right">
 				<p:commandButton value="Voltar" icon="ui-icon-keyboard-return"
-					update="@form" actionListener="#{UserB.abrirPesquisarUsuario}" />
+					update="@form" actionListener="#{AdminBean.abrirPesquisarUsuario}" />
 			</f:facet>
 		</p:toolbar>
 	</h:form>

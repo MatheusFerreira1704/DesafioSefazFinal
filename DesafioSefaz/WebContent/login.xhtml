@@ -14,37 +14,64 @@
 	<p:graphicImage library="imagem" name="marca.png" width="435"
 		margin-left="auto" margin-right="auto" />
 
-	<h:form>
-
-		<!--  	<p:dialog header="Desafio Sefaz" modal="true" height="150"
-			visible="true"> -->
+	<h:form id="login">
 
 		<p:panelGrid columns="2">
 			<h:outputLabel value="E-mail:" />
-			<p:inputText value="#{LoginB.usuarioTXT}" size="50" />
+			<p:inputText value="#{LoginBean.usuarioTXT}" size="50" />
 			<h:outputLabel value="Senha :" />
-			<p:password value="#{LoginB.senhaTXT}" size="50" />
-			<h:outputLabel value="#{LoginB.mensagem}" style="color: red" />
+			<p:password value="#{LoginBean.senhaTXT}" size="50" />
+			<h:outputLabel value="#{LoginBean.mensagem}" style="color: red" />
 			<p:commandButton value="Entrar" update="@form"
-				actionListener="#{LoginB.entrar}" />
+				actionListener="#{LoginBean.entrar}" />
 			<p:commandButton value="Cadastro" type="button"
 				onclick="PF('dlg2').show();" />
 		</p:panelGrid>
-
-		<!--  	</p:dialog> -->
-		<p:dialog header="CADASTRO" widgetVar="dlg2" modal="true" height="350">
+	</h:form>
+	<!--  	</p:dialog> -->
+	<h:form id="Cadastro">
+		<p:dialog header="Cadastro Usuário" widgetVar="dlg2" modal="true"
+			height="400" resizable="false">
 			<h:panelGrid>
 				<h:outputLabel value="E-mail:" />
-				<p:inputText value="#{LoginB.usuario.email}" />
+				<p:inputText value="#{LoginBean.usuario.email}" />
 
 				<h:outputLabel value="Nome:" />
-				<p:inputText value="#{LoginB.usuario.nome}" />
+				<p:inputText value="#{LoginBean.usuario.nome}" />
 
 				<h:outputLabel value="Senha:" />
-				<p:inputText value="#{LoginB.usuario.senha}" />
+				<p:password id="pass1" value="#{LoginBean.usuario.senha}"
+					match="pass2" label="Password 1" redisplay="true"
+					requiredMessage="* Insira uma senha." required="true"
+					validatorMessage="* Senhas não coincidem." />
+				<h:outputLabel value="Confirme senha: *" />
+				<p:password id="pass2" value="#{LoginBean.usuario.senha}" />
 
+				<p:row />
+				<h:outputLabel value="Telefone Principal" />
+				<p:row />
+
+				<h:panelGrid columns="3">
+
+					<h:outputLabel value="DDD:" />
+					<p:inputText value="#{LoginBean.telefone.ddd}" maxlength="2" />
+
+					<p:row />
+					<h:outputLabel value="Número:" />
+					<p:inputText value="#{LoginBean.telefone.numero}" maxlength="9" />
+
+					<p:row />
+
+					<h:outputLabel value="Tipo:" />
+					<p:selectOneMenu style="width:125px"
+						value="#{LoginBean.telefone.tipo}">
+						<f:selectItem itemLabel="Celular" itemValue="CELULAR" />
+						<f:selectItem itemLabel="Fixo" itemValue="FIXO" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
 				<p:commandButton value="Salvar" update="@form"
-					actionListener="#{LoginB.salvar}" />
+					actionListener="#{LoginBean.salvar}" />
 			</h:panelGrid>
 		</p:dialog>
 

@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+	<h:outputLabel value="#{UserB.usuario.senha}" />
+	<h:form id="form">
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+		<p:panel header="Cadastro de Usuário" style="text-align:center">
+			<p:panelGrid id="gridCampos" style="width: 100%">
+				<p:row>
+					<p:column style="width:40px">
+						<h:outputLabel value="Nome: " />
+					</p:column>
+					<p:column colspan="2" style="width:400px">
+						<p:inputText value="#{UserB.usuario.nome}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="width:40px">
+						<h:outputLabel value="E-mail: " title="e-mail não é alteravel." />
+					</p:column>
+					<p:column colspan="2" style="width:400px">
+						<p:inputText value="#{UserB.usuario.email}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="width:40px">
+						<h:outputLabel value="Senha: " />
+					</p:column>
+					<p:column colspan="2" style="width:400px">
+						<p:password id="pwd2" value="#{UserB.usuario.senha}"
+							label="Password 2" redisplay="true" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="4">
+						<p:panel header="Telefones" style="text-align:center">
+							<p:panelGrid columns="8">
+								<h:outputLabel value="DDD: " />
+								<p:inputText size="5" value="#{UserB.telefone.ddd}"
+									maxlength="2" />
+								<h:outputLabel value="Número: " />
+								<p:inputText size="95" value="#{UserB.telefone.numero}"
+									maxlength="9" />
+								<h:outputLabel value="Tipo: " />
+								<p:selectOneMenu style="width:125px"
+									value="#{UserB.telefone.tipo}">
+									<f:selectItem itemLabel="Celular" itemValue="CELULAR" />
+									<f:selectItem itemLabel="Fixo" itemValue="FIXO" />
+								</p:selectOneMenu>
+								<p:commandButton value="Adicionar" update="telefone"
+									actionListener="#{UserB.adicionarTelefone}" />
+									<p:commandButton value="Excluir" update="telefone"
+									actionListener="#{UserB.removerTel}" />
+							</p:panelGrid>
+							<p:dataTable id="telefone" var="telefone"
+								value="#{UserB.usuario.telefones}">
+								<p:column headerText="DDD" style="width:18%">
+									<h:outputText value="#{telefone.ddd}" />
+								</p:column>
+								<p:column headerText="Número">
+									<h:outputText value="#{telefone.numero}" />
+								</p:column>
+								<p:column headerText="Tipo" style="width:23%">
+									<h:outputText value="#{telefone.tipo}" />
+								</p:column>
+								<p:commandButton value="Excluir" update="telefone"
+									actionListener="#{UserB.removerTel}" />
+							</p:dataTable>
+						</p:panel>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:panel>
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton value="Salvar" icon="ui-icon-disk" update="@form"
+					actionListener="#{UserB.salvar}" resetValues="true"
+					outcome="paginas/usuario/pesquisarUsuario.xhtml" />
+
+				<span class="ui-separator"> <span
+					class="ui icon ui-icon-grip-dotted-vertical" />
+				</span>
+
+				<p:commandButton value="Limpar" update="gridCampos"
+					icon="ui-icon-trash" process="@this"
+					actionListener="#{UserB.limpar}">
+					<p:resetInput target="gridCampos" />
+				</p:commandButton>
+			</f:facet>
+			<f:facet name="right">
+				<p:commandButton value="Voltar" icon="ui-icon-keyboard-return"
+					update="@form" actionListener="#{UserB.abrirPesquisarUsuario}" />
+			</f:facet>
+
+
+		</p:toolbar>
+	</h:form>
+</h:body>
+</html>

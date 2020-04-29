@@ -14,31 +14,29 @@ import dao.UsuarioDAOImpl;
 import entidade.Telefone;
 import entidade.Usuario;
 
-@ManagedBean(name = "UserB")
+@ManagedBean(name = "UsuarioBean")
 @SessionScoped
-public class UsuarioBean2 {
+public class UsuarioBean {
 
-	/*
-	 * @Author Matheus F. Silva Classe respons√°vel por controlar as telas de manter
-	 * e pesquisar.
+	/**
+	 * @author Matheus F. Silva, classe respons·vel pela regra de negÛcio do
+	 *         Usuario.
 	 * 
-	 * √â onde os atributos s√£o repassado com os mesmo nomes.
 	 */
-
 	private Usuario usuario;
 	private Telefone telefone;
 	private List<Usuario> listaUsuario;
 	private String emailSelecionado;
 
-	// Interface do UsuarioDAO, onde est√£o os metodos.
+	// Interface, onde encontra-se a descriÁ„o dos mÈtodos.
 	private UsuarioDAO usuarioDAO;
+	private long idTelefoneSelecionado;
 
-	private static final String MANTER = "manterUsuario.xhtml";
+	private static final String MANTER = "addTelefone.xhtml";
 	private static final String PESQUISAR = "pesquisarUsuario.xhtml";
-	private static final String TELEFONES = "verTelefoneUsuario.xhtml";
 	private static final String SAIR = "sair.xhtml";
 
-	public UsuarioBean2() {
+	public UsuarioBean() {
 
 		this.usuario = new Usuario();
 		this.usuario.setTelefones(new ArrayList<Telefone>());
@@ -57,9 +55,8 @@ public class UsuarioBean2 {
 	}
 
 	public void pesquisar() {
-		/*
-		 * Recupera a lista usuarios e mostra 1 telefone o primeiro do array.
-		 */
+		// Recupera a lista usuarios e mostra 1 telefone o primeiro do array.
+
 		this.listaUsuario = this.usuarioDAO.listarTodos();
 		System.out.println("Voc√™ est√° na tela de pesquisa.");
 	}
@@ -75,7 +72,7 @@ public class UsuarioBean2 {
 		}
 	}
 
-	public void abrirManterUsuario() throws IOException {
+	public void abrirTelefone() throws IOException {
 
 		FacesContext.getCurrentInstance().getExternalContext().redirect(MANTER);
 	}
@@ -84,64 +81,29 @@ public class UsuarioBean2 {
 		FacesContext.getCurrentInstance().getExternalContext().redirect(PESQUISAR);
 	}
 
-	public void abrirVerTelefoneUsuario() throws IOException {
-		FacesContext.getCurrentInstance().getExternalContext().redirect(TELEFONES);
-	}
-
 	public void abrirTelaSair() throws IOException {
 		FacesContext.getCurrentInstance().getExternalContext().redirect(SAIR);
 	}
 
 	public void adicionarTelefone() {
 
-		if (!this.existeTelefone(telefone)) {
+		Telefone telefoneNovo = new Telefone();
 
-			Telefone telefoneNovo = new Telefone();
+		telefoneNovo.setDdd(this.telefone.getDdd());
+		telefoneNovo.setNumero(this.telefone.getNumero());
+		telefoneNovo.setTipo(this.telefone.getTipo());
+		telefoneNovo.setUsuario(this.usuario);
 
-			telefoneNovo.setDdd(this.telefone.getDdd());
-			telefoneNovo.setNumero(this.telefone.getNumero());
-			telefoneNovo.setTipo(this.telefone.getTipo());
-			telefoneNovo.setUsuario(this.usuario);
+		this.usuario.getTelefones().add(telefoneNovo);
 
-			this.usuario.getTelefones().add(telefoneNovo);
+		this.telefone = new Telefone();
 
-			this.telefone = new Telefone();
-
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Telefone j√° existe !!!"));
-		}
-
-	}
-
-	private boolean existeTelefone(Telefone telefone) {
-		boolean retorno = false;
-
-		for (Telefone telLista : this.usuario.getTelefones()) {
-			if (telLista.getDdd() == telefone.getDdd() && telLista.getNumero().equals(telefone.getNumero())) {
-				retorno = true;
-			}
-		}
-
-		return retorno;
 	}
 
 	public void editar() throws IOException {
-		Usuario usuarioEdicao = this.usuarioDAO.pesquisar(emailSelecionado);
+		Usuario usuarioEdicao = this.usuarioDAO.pesquisar(this.emailSelecionado);
 		this.usuario = usuarioEdicao;
-		abrirManterUsuario();
-	}
-
-	public void verTelefone() throws IOException {
-		Usuario usuarioTelefone = this.usuarioDAO.pesquisar(emailSelecionado);
-		this.usuario = usuarioTelefone;
-		abrirVerTelefoneUsuario();
-	}
-
-	public void remover() {
-		this.usuarioDAO.remover(emailSelecionado);
-		this.listaUsuario = this.usuarioDAO.listarTodos();
-
+		abrirTelefone();
 	}
 
 	public void limpar() {
@@ -149,6 +111,12 @@ public class UsuarioBean2 {
 		this.usuario = new Usuario();
 		this.usuario.setTelefones(new ArrayList<Telefone>());
 		this.telefone = new Telefone();
+	}
+
+	public void removerTel() {
+		this.usuarioDAO.removerTelefone(this.idTelefoneSelecionado);
+		this.usuario = this.usuarioDAO.pesquisar(emailSelecionado);
+
 	}
 
 	public Usuario getUsuario() {

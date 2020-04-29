@@ -14,6 +14,8 @@ public interface UsuarioDAO {
 	public boolean salvar(Usuario usuario);
 
 	public void remover(String emailUsuario);
+	
+	public void removerTelefone(long idTelefone);
 
 	public void alterar(Usuario usuario);
 

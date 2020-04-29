@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import entidade.Telefone;
 import entidade.Usuario;
 /*
  * @Author Matheus F. Silva
@@ -78,6 +79,30 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		Usuario usuarioPesquisar = ent.find(Usuario.class, email);
 		return usuarioPesquisar;
 	}
+	
+	@Override
+	public void removerTelefone(long idTelefone) {
+		try {
+			this.ent = JpaUtil.getEntityManager();
+			Telefone telefoneRemover = ent.find(Telefone.class, idTelefone);
+			tx = ent.getTransaction();
+			tx.begin();
+			ent.remove(telefoneRemover);
+			tx.commit();
+
+		} catch (Exception e) {
+			if (ent.isOpen()) {
+				tx.rollback();
+			}
+		} finally {
+			if (ent.isOpen()) {
+				ent.close();
+			}
+		}
+	}
+	
+	
+	
 
 	/**
 	 * O metodo listar todos, faz um select * from, porém com o JPA, vc faz a

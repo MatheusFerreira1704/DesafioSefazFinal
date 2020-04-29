@@ -14,14 +14,20 @@ import dao.UsuarioDAOImpl;
 import entidade.Telefone;
 import entidade.Usuario;
 
-@ManagedBean(name = "LoginB")
+@ManagedBean(name = "LoginBean")
 @RequestScoped
 public class LoginBean {
 
+	/**
+	 * @author Matheus F.Silva
+	 **/
+	 
+	
 	// Essas variaveis são responsaveis para o acesso geral, o admin
 	private String usarioAdmin = "admin";
 	private String senhaAdmin = "admin";
 
+	//variáveis de login usuario.
 	private String usuarioTXT;
 	private String senhaTXT;
 
@@ -29,8 +35,11 @@ public class LoginBean {
 
 	private Usuario usuario;
 	private Telefone telefone;
-
-	private static final String PESQUISAR = "paginas/usuario/pesquisarUsuario.xhtml";
+	
+	// Atributo de redirecionamento de tela de acordo com o login.
+	private static final String ADMIN = "paginas/admin/pesquisarUsuario.xhtml";
+	private static final String USER = "paginas/usuario/inicioUsuario.xhtml";
+	
 	private String mensagem;
 
 	public LoginBean() {
@@ -42,17 +51,17 @@ public class LoginBean {
 
 	public void entrar() throws IOException {
 		if (this.usuarioTXT.equals(this.usarioAdmin) && this.senhaTXT.equals(this.senhaAdmin)) {
-			FacesContext.getCurrentInstance().getExternalContext().redirect(PESQUISAR);
+			FacesContext.getCurrentInstance().getExternalContext().redirect(ADMIN);
 		} else {
 			Usuario usuarioPesquisa = this.usuarioDAO.pesquisar(this.usuarioTXT);
 			if (usuarioPesquisa != null) {
 				if (usuarioPesquisa.getSenha().equals(this.senhaTXT)) {
-					FacesContext.getCurrentInstance().getExternalContext().redirect(PESQUISAR);
+					FacesContext.getCurrentInstance().getExternalContext().redirect(USER);
 				} else {
-					this.mensagem = "Usuario ou senha errada";
+					this.mensagem = "Erro ao inserir.";
 				}
 			} else {
-				this.mensagem = "Usuario inexistente.";
+				this.mensagem = "Erro ao inserir.";
 			}
 
 		}
@@ -60,6 +69,8 @@ public class LoginBean {
 	}
 
 	public void salvar() throws IOException {
+		this.telefone.setUsuario(this.usuario);
+		this.usuario.getTelefones().add(this.telefone);
 
 		if (this.usuarioDAO.salvar(this.usuario)) {
 			System.out.println("salvou");
