@@ -12,7 +12,7 @@ import javax.persistence.Table;
 /**
  * 
  * @author Matheus F.Silva SubClasse da aplicação, utilizada para trazer as
- *         informações referênte ao telefone cadastrado de cada usuário.
+ *         informacoes referente ao telefone cadastrado de cada usuario.
  *
  */
 @Entity
@@ -22,8 +22,6 @@ public class Telefone {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue
-	//@GeneratedValue(generator = "S_TELEFONE")
-	//@SequenceGenerator(name = "S_TELEFONE", sequenceName = "S_TELEFONE", allocationSize = 1)
 	private long id;
 
 	@Column(name = "ddd")
@@ -37,16 +35,15 @@ public class Telefone {
 
 	/*
 	 * Aqui utilizamos o ManyToOne, para identificar que vários registros dessa
-	 * entidade está relacionado com um registro da outra, neste caso o Usuario. na
+	 * entidade estao relacionado com um registro da outra, neste caso o Usuario. na
 	 * hora de solicitar as informações sobre o usuario, caso esse possoa mais de um
-	 * telefone todos serão mostrados ao mesmo tempo.
+	 * telefone todos serao mostrados ao mesmo tempo.
 	 */
 
 	@ManyToOne
 	@JoinColumn(name = "email_usuario", referencedColumnName = "email", nullable = false)
 	private Usuario usuario;
 
-	// metodos.
 
 	public long getId() {
 		return id;

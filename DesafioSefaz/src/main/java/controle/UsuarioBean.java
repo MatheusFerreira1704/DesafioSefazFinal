@@ -106,13 +106,6 @@ public class UsuarioBean {
 		abrirTelefone();
 	}
 
-	public void limpar() {
-		this.listaUsuario = new ArrayList<Usuario>();
-		this.usuario = new Usuario();
-		this.usuario.setTelefones(new ArrayList<Telefone>());
-		this.telefone = new Telefone();
-	}
-
 	public void removerTel() {
 		this.usuarioDAO.removerTelefone(this.idTelefoneSelecionado);
 		this.usuario = this.usuarioDAO.pesquisar(emailSelecionado);

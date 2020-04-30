@@ -11,8 +11,8 @@ import javax.persistence.Table;
 
 /**
  * 
- * @author Matheus F.Silva Classe principal da aplicação, onde será armazenada
- *         as informações de cada usuario.
+ * @author Matheus F.Silva Classe principal da aplicao, onde sera armazenada
+ *         as informacoes de cada usuario.
  */
 
 @Entity
@@ -33,7 +33,7 @@ public class Usuario {
 	/*
 	 * @OneToMany, esta sendo utilizado para informar que um registro desta
 	 * entidade, está relacionada com varios outros registros da outra entidade, que
-	 * no neste caso é a entenidade Telefone.
+	 * no neste caso  a entenidade Telefone.
 	 */
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Telefone> telefones;
